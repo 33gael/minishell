@@ -1,4 +1,4 @@
-readme_en_content = """# 🐚 Minishell - A Simple Command-Line Interpreter
+# 🐚 Minishell - A Simple Command-Line Interpreter
 
 > This project is a minimalist shell implementation. It provides a deep dive into process management, file descriptors, and signal handling in C.
 
