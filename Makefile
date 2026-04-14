@@ -1,0 +1,98 @@
+NAME        = minishell
+
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror -g
+
+RED         = \033[0;31m
+RESET       = \033[0m
+
+SRCS_DIR    = srcs/
+BUILTINS_DIR = srcs/builtins/
+EXEC_DIR    = srcs/exec/
+PARSING_DIR = srcs/parsing/
+INC_DIR     = includes/
+LIBFT_DIR   = includes/libft/
+
+SRCS        = $(PARSING_DIR)minishell.c\
+              $(PARSING_DIR)free.c\
+              $(PARSING_DIR)copy_env.c\
+              $(PARSING_DIR)path_finder.c\
+              $(PARSING_DIR)lexer.c\
+              $(PARSING_DIR)check_token.c\
+              $(PARSING_DIR)create_token.c\
+              $(PARSING_DIR)handle_quotes.c\
+              $(PARSING_DIR)input_to_token.c\
+              $(PARSING_DIR)handle_quotes_utils.c\
+              $(PARSING_DIR)token_pipe.c\
+              $(PARSING_DIR)token_redir_in.c\
+              $(PARSING_DIR)token_redir_out.c\
+              $(PARSING_DIR)parsing.c\
+              $(PARSING_DIR)create_cmd.c\
+              $(PARSING_DIR)expand_token.c\
+              $(PARSING_DIR)expand_token_utils.c\
+              $(PARSING_DIR)quote_array.c\
+              $(PARSING_DIR)expand_quote.c\
+              $(PARSING_DIR)create_cmd_args.c\
+              $(PARSING_DIR)readline.c\
+              $(PARSING_DIR)ft_count_token.c\
+              $(PARSING_DIR)is_builtins.c\
+              $(PARSING_DIR)ft_split_mod.c\
+              $(PARSING_DIR)copy_env_utils.c\
+              $(PARSING_DIR)cmd_other_type.c\
+              $(PARSING_DIR)readline_utils.c\
+              $(EXEC_DIR)child_process.c\
+              $(EXEC_DIR)child_process_utils.c\
+              $(EXEC_DIR)execute.c\
+              $(EXEC_DIR)redirection.c\
+              $(EXEC_DIR)heredoc.c\
+              $(EXEC_DIR)signal.c\
+              $(EXEC_DIR)init_signal.c\
+              $(BUILTINS_DIR)echo.c\
+              $(BUILTINS_DIR)pwd.c\
+              $(BUILTINS_DIR)cd.c\
+              $(BUILTINS_DIR)env.c\
+              $(BUILTINS_DIR)export.c\
+              $(BUILTINS_DIR)unset.c\
+              $(BUILTINS_DIR)exit.c\
+              $(BUILTINS_DIR)cd_utils.c\
+              $(BUILTINS_DIR)lists_utils.c\
+              $(BUILTINS_DIR)export_utils.c
+
+OBJS        = $(SRCS:.c=.o)
+
+LIBFT       = $(LIBFT_DIR)libft.a
+INC         = -I $(INC_DIR) -I $(LIBFT_DIR)
+LIBS        = -L $(LIBFT_DIR) -lft -lreadline
+
+all: $(NAME)
+
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	@printf "$(RED)"
+	@echo '$$$$\      $$$$\ $$$$\           $$$$\ $$$$\   $$$$\           $$$$\ $$$$\ '
+	@echo '$$$$$$\    $$$$$$ |\__|          \__|$$$$ |  $$$$ |          $$$$ |$$$$ |'
+	@echo '$$$$$$$$\  $$$$$$$$ |$$$$\ $$$$$$$$$$$$$$\  $$$$\ $$$$ |  $$$$ | $$$$$$$$$$$$\  $$$$ |$$$$ |'
+	@echo '$$$$\$$$$\$$$$ $$$$ |$$$$ |$$$$  __$$$$\ $$$$ |$$$$$$$$$$$$$$$$ |$$$$  __$$$$\ $$$$ |$$$$ |'
+	@echo '$$$$ \$$$$$$  $$$$ |$$$$ |$$$$ |  $$$$ |$$$$ |$$$$  __$$$$ |$$$$$$$$$$$$$$$$ |$$$$ |$$$$ |'
+	@echo '$$$$ |\$$  /$$$$ |$$$$ |$$$$ |  $$$$ |$$$$ |$$$$ |  $$$$ |$$$$   ____|$$$$ |$$$$ |'
+	@echo '$$$$ | \_/ $$$$ |$$$$ |$$$$ |  $$$$ |$$$$ |$$$$ |  $$$$ |\$$$$$$$$$$$$$$\ $$$$ |$$$$ |'
+	@echo '\__|     \__|\__|\__|  \__|\__|\__|  \__| \_______|\__|\__|'
+	@printf "$(RESET)\n"
+
+$(LIBFT):
+	@$(MAKE) -sC $(LIBFT_DIR) > /dev/null 2>&1
+
+%.o: %.c
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+clean:
+	@$(MAKE) -sC $(LIBFT_DIR) clean > /dev/null 2>&1
+	@rm -f $(OBJS)
+
+fclean: clean
+	@$(MAKE) -sC $(LIBFT_DIR) fclean > /dev/null 2>&1
+	@rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
