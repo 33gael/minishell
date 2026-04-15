@@ -122,3 +122,7 @@ To track all crashes and memory leaks in the program, you can run `Valgrind` wit
 ```bash
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes ./minishell
 ```
+
+
+### For Mac users
+If you want to compile `minishell` on a mac you need to use the `MakefileForMac` and rename it into `Makefile`
