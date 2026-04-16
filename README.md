@@ -22,7 +22,7 @@ The goal of **Minishell** is to recreate a simplified version of `bash`. The pro
 Here is the directory structure as shown in the repository:
 
 ```text
-MINISHELL/
+minishell/
 ├── includes/
 │   ├── libft/                 # Extended C library (custom functions)
 │   └── minishell.h            # Main project header
@@ -75,7 +75,8 @@ MINISHELL/
 │       ├── token_redir_in.c
 │       └── token_redir_out.c
 ├── .gitignore
-└── Makefile                   # Compilation script
+├── Makefile                   # Compilation script
+└── MakefileForMac             # Makefile Mac Users
 ```
 ---
 ## ✨ Features
